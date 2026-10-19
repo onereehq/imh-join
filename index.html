@@ -148,7 +148,7 @@
 <div class="wrap">
 
   <header class="mast">
-    <p class="eyebrow">Inspired Minds Hub · Cape Town</p>
+    <p class="eyebrow">Inspired Minds Hub Podcast · Cape Town</p>
     <h1>Joining the IMH team</h1>
     <p class="lede">This is how we bring new people onto the podcast team. The first parts are about you: your skills, how you think, and whether you are here for the long build. The last part is the agreement you are signing. It is unpaid, voluntary, and honest about what this is right now.</p>
     <div class="meta">
@@ -353,7 +353,7 @@
         <p class="gsub">Clauses 1 to 4</p>
         <div class="clause">
           <h4>1 · Voluntary role, not employment</h4>
-          <p>I am joining Inspired Minds Hub (IMH) as a volunteer team member. This is not employment, an internship, a learnership, an apprenticeship, or a contract for services. No employment relationship is created or intended, and I am not an employee of IMH or of its founder.</p>
+          <p>I am joining Inspired Minds Hub Podcast (IMH) as a volunteer team member. This is not employment, an internship, a learnership, an apprenticeship, or a contract for services. No employment relationship is created or intended, and I am not an employee of IMH or of its founder.</p>
         </div>
         <div class="clause">
           <h4>2 · No payment</h4>
@@ -931,9 +931,11 @@ function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var r,n,i,a,
         Array.prototype.slice.call(sec.querySelectorAll(".tgroup")).forEach(function(g){
           var box=g.querySelector(".agreeall input");
           var agreed=box&&box.checked;
-          handlers.groupHead((g.querySelector(".gname")||{}).textContent+", "+(g.querySelector(".gsub")||{}).textContent,agreed);
+          handlers.groupHead((g.querySelector(".gname")||{}).textContent+", "
+            +(g.querySelector(".gsub")||{}).textContent
+            +(agreed?"   AGREED":"   NOT TICKED"),agreed);
           Array.prototype.slice.call(g.querySelectorAll(".clause")).forEach(function(c){
-            handlers.clause((agreed?"AGREED":"NOT TICKED")+"   "+c.querySelector("h4").textContent,
+            handlers.clause("Clause "+c.querySelector("h4").textContent,
                             c.querySelector("p").textContent);
           });
         });
@@ -963,7 +965,7 @@ function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var r,n,i,a,
     var name=(document.getElementById("fullName").value||"").trim();
     var head=el("div","dochead");
     head.appendChild(el("h3","","IMH Team Onboarding and Volunteer Agreement"));
-    head.appendChild(el("p","","Inspired Minds Hub, Cape Town"));
+    head.appendChild(el("p","","Inspired Minds Hub Podcast, Cape Town"));
     head.appendChild(el("p","",(name?name+" · ":"")+"Completed "+new Date().toLocaleString()));
     doc.appendChild(head);
 
@@ -1073,19 +1075,19 @@ function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var r,n,i,a,
     var M=52, w=W-M*2, y=M;
 
     function room(h){if(y+h>H-M){pdf.addPage();y=M;}}
-    function text(str,size,style,gap,color){
+    function text(str,size,style,gap){
       pdf.setFont("helvetica",style||"normal");
       pdf.setFontSize(size);
-      pdf.setTextColor(color||30);
+      pdf.setTextColor(0);
       var lines=pdf.splitTextToSize(String(str||""),w);
       for(var i=0;i<lines.length;i++){room(size*1.35);pdf.text(lines[i],M,y);y+=size*1.35;}
       y+=(gap==null?6:gap);
     }
-    function rule(thick){room(10);pdf.setDrawColor(26,39,68);pdf.setLineWidth(thick||0.6);pdf.line(M,y,W-M,y);y+=12;}
+    function rule(thick){room(10);pdf.setDrawColor(0);pdf.setLineWidth(thick||0.6);pdf.line(M,y,W-M,y);y+=12;}
 
     var name=(document.getElementById("fullName").value||"").trim();
     text("IMH Team Onboarding and Volunteer Agreement",17,"bold",4,26);
-    text("Inspired Minds Hub, Cape Town",10.5,"normal",2,110);
+    text("Inspired Minds Hub Podcast, Cape Town",10.5,"normal",2,0);
     text((name?name+"   ":"")+"Completed "+new Date().toLocaleString(),10.5,"normal",4,110);
     rule(1.4);
 
@@ -1108,7 +1110,7 @@ function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var r,n,i,a,
       pdf.setPage(pg);
       pdf.setFont("helvetica","normal");
       pdf.setFontSize(9);
-      pdf.setTextColor(140);
+      pdf.setTextColor(0);
       pdf.text("IMH Team Onboarding   "+(name||"")+"   Page "+pg+" of "+total,M,H-26);
     }
     return pdf;
